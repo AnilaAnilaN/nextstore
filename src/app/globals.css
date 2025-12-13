@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Mukta:300,400,700');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #7971ea;
+  --color-primary-hover: #5a50e5;
+  
+  --font-family-base: 'Mukta', sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.625;
+    color: theme(colors.gray.600);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    color: theme(colors.gray.900);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 200ms;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background-color: theme(colors.gray.200);
+    color: theme(colors.gray.900);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 200ms;
+  }
+
+  .btn-secondary:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline-primary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 200ms;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .site-section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .site-section {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  .container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
