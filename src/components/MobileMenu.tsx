@@ -20,14 +20,14 @@ const MobileMenu = ({ isOpen, onClose, menuItems }: MobileMenuProps) => {
       {/* Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/60 z-[1999]"
+          className="fixed inset-0 bg-black/60 z-1999"
           onClick={onClose}
         />
       )}
 
       {/* Menu */}
       <div 
-        className={`fixed top-0 right-0 h-full w-[300px] bg-white z-[2000] shadow-xl transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-[300px] bg-white z-2000 shadow-xl transform transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -53,7 +53,7 @@ const MobileMenu = ({ isOpen, onClose, menuItems }: MobileMenuProps) => {
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="block px-5 py-3 text-gray-900 hover:text-[#7971ea] text-lg transition-colors"
+                    className="block px-5 py-3 text-gray-900 hover:text-primary text-lg transition-colors"
                     onClick={onClose}
                   >
                     {item.label}

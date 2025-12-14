@@ -187,7 +187,7 @@ export default function NewProductPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                     placeholder="e.g., Classic Cotton T-Shirt"
                     required
                   />
@@ -202,7 +202,7 @@ export default function NewProductPage() {
                     value={formData.description}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                     placeholder="Describe your product..."
                     required
                   />
@@ -234,7 +234,7 @@ export default function NewProductPage() {
                       />
                       <label
                         htmlFor="image-upload"
-                        className="inline-block bg-[#7971ea] text-white px-6 py-2 rounded cursor-pointer hover:bg-[#5a50e5] transition"
+                        className="inline-block bg-primary text-white px-6 py-2 rounded cursor-pointer hover:bg-primary-hover transition"
                       >
                         {uploading ? 'Uploading...' : 'Choose File'}
                       </label>
@@ -279,8 +279,8 @@ export default function NewProductPage() {
                         onClick={() => handleSizeToggle(size)}
                         className={`px-4 py-2 border rounded transition ${
                           formData.sizes.includes(size)
-                            ? 'bg-[#7971ea] text-white border-[#7971ea]'
-                            : 'bg-white text-gray-700 border-gray-300 hover:border-[#7971ea]'
+                            ? 'bg-primary text-white border-primary'
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                         }`}
                       >
                         {size}
@@ -300,8 +300,8 @@ export default function NewProductPage() {
                         onClick={() => handleColorToggle(color)}
                         className={`px-4 py-2 border rounded transition ${
                           formData.colors.includes(color)
-                            ? 'bg-[#7971ea] text-white border-[#7971ea]'
-                            : 'bg-white text-gray-700 border-gray-300 hover:border-[#7971ea]'
+                            ? 'bg-primary text-white border-primary'
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                         }`}
                       >
                         {color}
@@ -331,7 +331,7 @@ export default function NewProductPage() {
                     onChange={handleChange}
                     step="0.01"
                     min="0"
-                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                     placeholder="0.00"
                     required
                   />
@@ -347,7 +347,7 @@ export default function NewProductPage() {
                     value={formData.stock}
                     onChange={handleChange}
                     min="0"
-                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                     placeholder="0"
                     required
                   />
@@ -363,7 +363,7 @@ export default function NewProductPage() {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                 required
               >
                 <option value="clothing">Clothing</option>
@@ -382,7 +382,7 @@ export default function NewProductPage() {
                   name="featured"
                   checked={formData.featured}
                   onChange={handleChange}
-                  className="w-5 h-5 text-[#7971ea] border-gray-300 rounded focus:ring-[#7971ea]"
+                  className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                 />
                 <div>
                   <span className="text-gray-900 font-medium">Featured Product</span>
@@ -396,7 +396,7 @@ export default function NewProductPage() {
               <button
                 type="submit"
                 disabled={saving || uploading}
-                className="w-full bg-[#7971ea] text-white py-3 rounded font-medium hover:bg-[#5a50e5] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                className="w-full bg-primary text-white py-3 rounded font-medium hover:bg-primary-hover transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 <Save className="w-5 h-5" />
                 <span>{saving ? 'Creating...' : 'Create Product'}</span>

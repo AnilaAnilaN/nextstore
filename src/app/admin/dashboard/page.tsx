@@ -123,7 +123,7 @@ export default function AdminDashboard() {
           <div className="space-y-3">
             <a
               href="/admin/dashboard/products/new"
-              className="block w-full bg-[#7971ea] text-white text-center py-3 rounded hover:bg-[#5a50e5] transition"
+              className="block w-full bg-primary text-white text-center py-3 rounded hover:bg-primary-hover transition"
             >
               Add New Product
             </a>

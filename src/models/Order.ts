@@ -78,12 +78,11 @@ const OrderSchema = new Schema<IOrder>(
 );
 
 // Generate unique order number
-OrderSchema.pre<IOrder>('save', async function (next) {
+OrderSchema.pre<IOrder>('save', async function () {
   if (!this.orderNumber) {
     const count = await mongoose.models.Order.countDocuments();
     this.orderNumber = `ORD-${Date.now()}-${count + 1}`;
   }
-  next();
 });
 
 OrderSchema.index({ orderNumber: 1 });
