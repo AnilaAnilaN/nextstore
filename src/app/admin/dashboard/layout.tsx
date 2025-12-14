@@ -89,7 +89,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   onClick={() => setSidebarOpen(false)}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-[#7971ea] text-white'
+                      ? 'bg-primary text-white'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
@@ -103,7 +103,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* User Section */}
           <div className="p-4 border-t border-gray-200">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-[#7971ea] rounded-full flex items-center justify-center text-white font-bold">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold">
                 {session.user?.name?.charAt(0).toUpperCase() || 'A'}
               </div>
               <div className="flex-1 min-w-0">

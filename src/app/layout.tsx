@@ -1,12 +1,14 @@
 // src/app/layout.tsx (Server Component)
 
-import type { Metadata } from 'next';
-import './globals.css';
-import ClientLayout from './ClientLayout'; // Import the new client wrapper
+import type { Metadata } from "next";
+import "./globals.css";
+import ClientLayout from "./ClientLayout"; // Import the new client wrapper
+import { mukta } from "../components/fonts";
 
-export const metadata: Metadata = { // Keep metadata here
-  title: 'Shoppers - E-Commerce Store',
-  description: 'Find your perfect shoes and clothing',
+export const metadata: Metadata = {
+  // Keep metadata here
+  title: "Shoppers - E-Commerce Store",
+  description: "Find your perfect shoes and clothing",
 };
 
 export default function RootLayout({
@@ -16,9 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${mukta.className} font-light leading-relaxed text-gray-600`}>
         {/* Call the new client component wrapper */}
-        <ClientLayout>{children}</ClientLayout> 
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

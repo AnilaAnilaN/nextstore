@@ -1,38 +1,41 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import Breadcrumb from '@/components/Breadcrumb';
+import { useState } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export default function CheckoutPage() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    country: 'United States',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    email: '',
-    phone: '',
+    firstName: "",
+    lastName: "",
+    country: "United States",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    email: "",
+    phone: "",
     createAccount: false,
     shipDifferent: false,
-    orderNotes: '',
+    orderNotes: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
-    
-    setFormData(prev => ({
+
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const orderData = {
       customer: {
         firstName: formData.firstName,
@@ -48,46 +51,48 @@ export default function CheckoutPage() {
         },
       },
       items: [
-        { product: '60d5ecb8d7d4f40015ca7b5a', quantity: 1 }, // Example product ID
-        { product: '60d5ecb8d7d4f40015ca7b5b', quantity: 1 }, // Example product ID
+        { product: "60d5ecb8d7d4f40015ca7b5a", quantity: 1 }, // Example product ID
+        { product: "60d5ecb8d7d4f40015ca7b5b", quantity: 1 }, // Example product ID
       ],
       total: cartTotal,
       notes: formData.orderNotes,
     };
 
     try {
-      const response = await fetch('/api/orders', {
-        method: 'POST',
+      const response = await fetch("/api/orders", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(orderData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to place order');
+        throw new Error("Failed to place order");
       }
 
-      window.location.href = '/thankyou';
+      window.location.href = "/thankyou";
     } catch (error) {
       console.error(error);
     }
   };
 
-  const cartTotal = 98.00; // Example total
+  const cartTotal = 98.0; // Example total
 
   return (
     <>
-      <Breadcrumb items={[{ label: 'Checkout' }]} />
+      <Breadcrumb items={[{ label: "Checkout" }]} />
 
-      <section className="site-section">
-        <div className="container">
+      <section className="py-10 md:py-20">
+        <div className="container mx-auto px-4">
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Billing Details */}
               <div>
-                <h2 className="text-2xl font-medium text-gray-900 mb-6">Billing Details</h2>
-                
+                <h2 className="text-2xl font-medium text-gray-900 mb-6">
+                  Billing Details
+                </h2>
+
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -99,7 +104,7 @@ export default function CheckoutPage() {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                         required
                       />
                     </div>
@@ -112,7 +117,7 @@ export default function CheckoutPage() {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                         required
                       />
                     </div>
@@ -126,7 +131,7 @@ export default function CheckoutPage() {
                       name="country"
                       value={formData.country}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                     >
                       <option>United States</option>
                       <option>United Kingdom</option>
@@ -145,7 +150,7 @@ export default function CheckoutPage() {
                       value={formData.address}
                       onChange={handleChange}
                       placeholder="House number and street name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                       required
                     />
                   </div>
@@ -160,7 +165,7 @@ export default function CheckoutPage() {
                         name="city"
                         value={formData.city}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                         required
                       />
                     </div>
@@ -173,7 +178,7 @@ export default function CheckoutPage() {
                         name="state"
                         value={formData.state}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                         required
                       />
                     </div>
@@ -188,7 +193,7 @@ export default function CheckoutPage() {
                       name="zipCode"
                       value={formData.zipCode}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                       required
                     />
                   </div>
@@ -203,7 +208,7 @@ export default function CheckoutPage() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                         required
                       />
                     </div>
@@ -216,7 +221,7 @@ export default function CheckoutPage() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                         required
                       />
                     </div>
@@ -244,7 +249,9 @@ export default function CheckoutPage() {
                         onChange={handleChange}
                         className="mr-2"
                       />
-                      <span className="text-gray-900">Ship to a different address?</span>
+                      <span className="text-gray-900">
+                        Ship to a different address?
+                      </span>
                     </label>
                   </div>
 
@@ -258,7 +265,7 @@ export default function CheckoutPage() {
                       onChange={handleChange}
                       rows={4}
                       placeholder="Write your notes here..."
-                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                     />
                   </div>
                 </div>
@@ -266,8 +273,10 @@ export default function CheckoutPage() {
 
               {/* Order Summary */}
               <div>
-                <h2 className="text-2xl font-medium text-gray-900 mb-6">Your Order</h2>
-                
+                <h2 className="text-2xl font-medium text-gray-900 mb-6">
+                  Your Order
+                </h2>
+
                 <div className="border border-gray-200 rounded p-6">
                   <div className="border-b border-gray-200 pb-4 mb-4">
                     <div className="flex justify-between mb-2">
@@ -290,16 +299,22 @@ export default function CheckoutPage() {
                   <div className="border-t border-gray-200 pt-4 mb-4">
                     <div className="flex justify-between mb-2">
                       <span className="text-gray-900">Subtotal</span>
-                      <span className="text-gray-900">${cartTotal.toFixed(2)}</span>
+                      <span className="text-gray-900">
+                        ${cartTotal.toFixed(2)}
+                      </span>
                     </div>
                     <div className="flex justify-between mb-4">
                       <span className="text-gray-900 font-medium">Total</span>
-                      <strong className="text-gray-900 text-xl">${cartTotal.toFixed(2)}</strong>
+                      <strong className="text-gray-900 text-xl">
+                        ${cartTotal.toFixed(2)}
+                      </strong>
                     </div>
                   </div>
 
                   <div className="border-t border-gray-200 pt-4 mb-6">
-                    <h3 className="text-gray-900 font-medium mb-4">Payment Method</h3>
+                    <h3 className="text-gray-900 font-medium mb-4">
+                      Payment Method
+                    </h3>
                     <div className="space-y-3">
                       <label className="flex items-center">
                         <input
@@ -309,7 +324,9 @@ export default function CheckoutPage() {
                           className="mr-2"
                           defaultChecked
                         />
-                        <span className="text-gray-900">Direct Bank Transfer</span>
+                        <span className="text-gray-900">
+                          Direct Bank Transfer
+                        </span>
                       </label>
                       <label className="flex items-center">
                         <input
@@ -334,7 +351,7 @@ export default function CheckoutPage() {
 
                   <button
                     type="submit"
-                    className="w-full bg-[#7971ea] text-white py-4 rounded uppercase tracking-wider hover:bg-[#5a50e5] transition"
+                    className="w-full bg-primary text-white py-4 rounded uppercase tracking-wider hover:bg-primary-hover transition"
                   >
                     Place Order
                   </button>

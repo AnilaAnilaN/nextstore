@@ -93,7 +93,7 @@ export default function ProductsPage() {
         </div>
         <Link
           href="/admin/dashboard/products/new"
-          className="mt-4 md:mt-0 inline-flex items-center space-x-2 bg-[#7971ea] text-white px-6 py-3 rounded hover:bg-[#5a50e5] transition"
+          className="mt-4 md:mt-0 inline-flex items-center space-x-2 bg-primary text-white px-6 py-3 rounded hover:bg-primary-hover transition"
         >
           <Plus className="w-5 h-5" />
           <span>Add Product</span>
@@ -111,7 +111,7 @@ export default function ProductsPage() {
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
               />
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function ProductsPage() {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
             >
               <option value="all">All Categories</option>
               <option value="clothing">Clothing</option>
@@ -161,7 +161,7 @@ export default function ProductsPage() {
                 <tr key={product._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-3">
-                      <div className="relative w-12 h-12 rounded overflow-hidden flex-shrink-0">
+                      <div className="relative w-12 h-12 rounded overflow-hidden shrink-0">
                         <Image
                           src={product.image}
                           alt={product.name}
@@ -173,7 +173,7 @@ export default function ProductsPage() {
                       <div>
                         <div className="font-medium text-gray-900">{product.name}</div>
                         {product.featured && (
-                          <span className="text-xs text-[#7971ea]">Featured</span>
+                          <span className="text-xs text-primary">Featured</span>
                         )}
                       </div>
                     </div>

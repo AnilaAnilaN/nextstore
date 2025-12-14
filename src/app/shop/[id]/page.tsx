@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import Breadcrumb from '@/components/Breadcrumb';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import Breadcrumb from "@/components/Breadcrumb";
+import Image from "next/image";
 
 export default function ProductPage() {
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<unknown>(null);
   const [quantity, setQuantity] = useState(1);
   const params = useParams();
   const { id } = params;
@@ -18,7 +17,7 @@ export default function ProductPage() {
         try {
           const response = await fetch(`/api/products/${id}`);
           if (!response.ok) {
-            throw new Error('Failed to fetch product');
+            throw new Error("Failed to fetch product");
           }
           const data = await response.json();
           setProduct(data.data);
@@ -37,10 +36,12 @@ export default function ProductPage() {
 
   return (
     <>
-      <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.name }]} />
+      <Breadcrumb
+        items={[{ label: "Shop", href: "/shop" }, { label: product.name }]}
+      />
 
-      <section className="site-section">
-        <div className="container">
+      <section className="py-10 md:py-20">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Product Image */}
             <div className="lg:col-span-1">
@@ -55,12 +56,18 @@ export default function ProductPage() {
 
             {/* Product Details */}
             <div className="lg:col-span-1">
-              <h2 className="text-3xl font-medium text-gray-900 mb-4">{product.name}</h2>
+              <h2 className="text-3xl font-medium text-gray-900 mb-4">
+                {product.name}
+              </h2>
               <p className="text-gray-600 mb-4">{product.description}</p>
-              <p className="text-2xl font-bold text-gray-900 mb-4">${product.price}</p>
+              <p className="text-2xl font-bold text-gray-900 mb-4">
+                ${product.price}
+              </p>
 
               <div className="flex items-center mb-6">
-                <label htmlFor="quantity" className="mr-4">Quantity:</label>
+                <label htmlFor="quantity" className="mr-4">
+                  Quantity:
+                </label>
                 <input
                   type="number"
                   id="quantity"
@@ -72,7 +79,7 @@ export default function ProductPage() {
                 />
               </div>
 
-              <button className="bg-[#7971ea] text-white px-8 py-3 rounded hover:bg-[#5f57c2] transition-colors">
+              <button className="bg-primary text-white px-8 py-3 rounded hover:bg-[#5f57c2] transition-colors">
                 Add to Cart
               </button>
             </div>

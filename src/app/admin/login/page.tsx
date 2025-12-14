@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
       } else {
         router.push('/admin/dashboard');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -47,7 +47,8 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#7971ea] to-[#5a50e5] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-[
+    #7971ea] to-primary-hover flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -60,7 +61,7 @@ export default function AdminLoginPage() {
         {/* Login Form */}
         <div className="bg-white rounded-lg shadow-2xl p-8">
           <div className="flex items-center justify-center mb-6">
-            <div className="bg-[#7971ea] p-3 rounded-full">
+            <div className="bg-primary p-3 rounded-full">
               <LogIn className="w-6 h-6 text-white" />
             </div>
           </div>
@@ -85,7 +86,7 @@ export default function AdminLoginPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                   placeholder="admin@shoppers.com"
                   required
                 />
@@ -101,7 +102,7 @@ export default function AdminLoginPage() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                   placeholder="••••••••"
                   required
                 />
@@ -111,14 +112,14 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#7971ea] text-white py-3 rounded font-medium hover:bg-[#5a50e5] transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-primary text-white py-3 rounded font-medium hover:bg-primary-hover transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <Link href="/" className="text-[#7971ea] hover:underline">
+            <Link href="/" className="text-primary hover:underline">
               ← Back to Store
             </Link>
           </div>

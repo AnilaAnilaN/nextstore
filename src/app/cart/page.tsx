@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import Breadcrumb from '@/components/Breadcrumb';
-import { Minus, Plus, X } from 'lucide-react';
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Breadcrumb from "@/components/Breadcrumb";
+import { Minus, Plus, X } from "lucide-react";
 
 interface CartItem {
   id: number;
@@ -16,13 +16,25 @@ interface CartItem {
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 1, name: 'Top Up T-Shirt', price: 49.00, quantity: 1, image: '/images/cloth_1.jpg' },
-    { id: 2, name: 'Polo Shirt', price: 49.00, quantity: 1, image: '/images/cloth_2.jpg' },
+    {
+      id: 1,
+      name: "Top Up T-Shirt",
+      price: 49.0,
+      quantity: 1,
+      image: "/images/cloth_1.jpg",
+    },
+    {
+      id: 2,
+      name: "Polo Shirt",
+      price: 49.0,
+      quantity: 1,
+      image: "/images/cloth_2.jpg",
+    },
   ]);
 
   const updateQuantity = (id: number, delta: number) => {
-    setCartItems(items =>
-      items.map(item =>
+    setCartItems((items) =>
+      items.map((item) =>
         item.id === id
           ? { ...item, quantity: Math.max(1, item.quantity + delta) }
           : item
@@ -31,52 +43,69 @@ export default function CartPage() {
   };
 
   const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
+    setCartItems((items) => items.filter((item) => item.id !== id));
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <>
-      <Breadcrumb items={[{ label: 'Cart' }]} />
+      <Breadcrumb items={[{ label: "Cart" }]} />
 
-      <section className="site-section">
-        <div className="container">
+      <section className="py-10 md:py-20">
+        <div className="container mx-auto px-4">
           <div className="overflow-x-auto mb-8">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border border-gray-200">
-                  <th className="p-6 text-center border border-gray-200">Image</th>
-                  <th className="p-6 text-center border border-gray-200">Product</th>
-                  <th className="p-6 text-center border border-gray-200">Price</th>
-                  <th className="p-6 text-center border border-gray-200">Quantity</th>
-                  <th className="p-6 text-center border border-gray-200">Total</th>
-                  <th className="p-6 text-center border border-gray-200">Remove</th>
+                  <th className="p-6 text-center border border-gray-200">
+                    Image
+                  </th>
+                  <th className="p-6 text-center border border-gray-200">
+                    Product
+                  </th>
+                  <th className="p-6 text-center border border-gray-200">
+                    Price
+                  </th>
+                  <th className="p-6 text-center border border-gray-200">
+                    Quantity
+                  </th>
+                  <th className="p-6 text-center border border-gray-200">
+                    Total
+                  </th>
+                  <th className="p-6 text-center border border-gray-200">
+                    Remove
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {cartItems.map((item) => (
-                  <tr key={item.id} className="border-t-2 border-[#7971ea]">
+                  <tr key={item.id} className="border-t-2 border-primary">
                     <td className="p-5 text-center">
                       <div className="relative w-32 h-32 mx-auto">
-                        <Image 
-                          src={item.image} 
-                          alt={item.name} 
-                          fill 
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
                           sizes="128px"
-                          className="object-cover" 
+                          className="object-cover"
                         />
                       </div>
                     </td>
                     <td className="p-5 text-center">
                       <h2 className="text-lg text-gray-900">{item.name}</h2>
                     </td>
-                    <td className="p-5 text-center text-gray-900">${item.price.toFixed(2)}</td>
+                    <td className="p-5 text-center text-gray-900">
+                      ${item.price.toFixed(2)}
+                    </td>
                     <td className="p-5 text-center">
                       <div className="flex items-center justify-center space-x-2">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="px-3 py-1 border border-[#7971ea] rounded hover:bg-[#7971ea] hover:text-white"
+                          className="px-3 py-1 border border-primary rounded hover:bg-primary hover:text-white"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
@@ -88,7 +117,7 @@ export default function CartPage() {
                         />
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="px-3 py-1 border border-[#7971ea] rounded hover:bg-[#7971ea] hover:text-white"
+                          className="px-3 py-1 border border-primary rounded hover:bg-primary hover:text-white"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -100,7 +129,7 @@ export default function CartPage() {
                     <td className="p-5 text-center">
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="bg-[#7971ea] text-white px-3 py-1 rounded hover:bg-[#5a50e5]"
+                        className="bg-primary text-white px-3 py-1 rounded hover:bg-primary-hover"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -114,22 +143,33 @@ export default function CartPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <div className="flex space-x-4 mb-6">
-                <button className="btn-primary flex-1">Update Cart</button>
-                <Link href="/shop" className="btn-outline-primary flex-1 text-center">
+                <button className="bg-primary text-white py-3 px-6 rounded-sm tracking-[0.05em] uppercase transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_10px_15px_-3px_rgb(0_0_0/0.1)] hover:-translate-y-0.5 flex-1">
+                  Update Cart
+                </button>
+                <Link
+                  href="/shop"
+                  className="py-3 px-6 rounded-sm uppercase tracking-[0.05em] transition-colors duration-200 border border-primary text-primary hover:bg-primary hover:text-white flex-1 text-center"
+                >
                   Continue Shopping
                 </Link>
               </div>
 
               <div>
-                <label className="block text-gray-900 text-xl mb-2">Coupon</label>
-                <p className="text-gray-600 mb-4">Enter your coupon code if you have one.</p>
+                <label className="block text-gray-900 text-xl mb-2">
+                  Coupon
+                </label>
+                <p className="text-gray-600 mb-4">
+                  Enter your coupon code if you have one.
+                </p>
                 <div className="flex space-x-4">
                   <input
                     type="text"
                     placeholder="Coupon Code"
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#7971ea]"
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
                   />
-                  <button className="btn-primary">Apply Coupon</button>
+                  <button className="bg-primary text-white py-3 px-6 rounded-sm tracking-[0.05em] uppercase transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_10px_15px_-3px_rgb(0_0_0/0.1)] hover:-translate-y-0.5">
+                    Apply Coupon
+                  </button>
                 </div>
               </div>
             </div>
@@ -137,19 +177,25 @@ export default function CartPage() {
             <div className="flex justify-end">
               <div className="w-full max-w-md">
                 <div className="border-b border-gray-300 pb-4 mb-4">
-                  <h3 className="text-xl uppercase text-gray-900 text-right">Cart Totals</h3>
+                  <h3 className="text-xl uppercase text-gray-900 text-right">
+                    Cart Totals
+                  </h3>
                 </div>
                 <div className="flex justify-between mb-4">
                   <span className="text-gray-900">Subtotal</span>
-                  <strong className="text-gray-900">${subtotal.toFixed(2)}</strong>
+                  <strong className="text-gray-900">
+                    ${subtotal.toFixed(2)}
+                  </strong>
                 </div>
                 <div className="flex justify-between mb-8">
                   <span className="text-gray-900">Total</span>
-                  <strong className="text-gray-900">${subtotal.toFixed(2)}</strong>
+                  <strong className="text-gray-900">
+                    ${subtotal.toFixed(2)}
+                  </strong>
                 </div>
                 <Link
                   href="/checkout"
-                  className="block w-full bg-[#7971ea] text-white text-center py-4 rounded uppercase tracking-wider hover:bg-[#5a50e5] transition"
+                  className="block w-full bg-primary text-white text-center py-4 rounded uppercase tracking-wider hover:bg-primary-hover transition"
                 >
                   Proceed To Checkout
                 </Link>

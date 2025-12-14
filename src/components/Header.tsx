@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useContext } from 'react';
 import Link from 'next/link';
@@ -11,7 +11,6 @@ const Header = () => {
   const cartContext = useContext(CartContext);
 
   if (!cartContext) {
-    
     return null;
   }
 
@@ -31,7 +30,7 @@ const Header = () => {
       <header className="bg-white sticky top-0 z-50 shadow-sm">
         {/* Top Bar */}
         <div className="border-b border-gray-200">
-          <div className="container">
+          <div className="container mx-auto px-4">
             <div className="flex items-center justify-between py-6 md:py-10">
               {/* Search */}
               <div className="flex items-center space-x-2 w-1/4">
@@ -47,7 +46,10 @@ const Header = () => {
 
               {/* Logo */}
               <div className="flex justify-center w-1/2 md:w-1/4">
-                <Link href="/" className="text-xl md:text-2xl font-bold uppercase tracking-wider border-2 border-gray-900 px-3 py-1">
+                <Link
+                  href="/"
+                  className="text-xl md:text-2xl font-bold uppercase tracking-wider border-2 border-gray-900 px-3 py-1"
+                >
                   Shoppers
                 </Link>
               </div>
@@ -62,11 +64,11 @@ const Header = () => {
                 </Link>
                 <Link href="/cart" className="relative">
                   <ShoppingCart className="w-5 h-5 text-gray-600 hover:text-gray-900" />
-                  <span className="absolute -top-2 -right-2 bg-[#7971ea] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                     {cartCount}
                   </span>
                 </Link>
-                <button 
+                <button
                   className="md:hidden"
                   onClick={() => setIsMobileMenuOpen(true)}
                 >
@@ -79,13 +81,13 @@ const Header = () => {
 
         {/* Navigation */}
         <nav className="hidden md:block border-b border-gray-200">
-          <div className="container">
+          <div className="container mx-auto px-4">
             <ul className="flex items-center justify-center space-x-8 py-4">
               {menuItems.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-gray-900 hover:text-[#7971ea] uppercase text-sm tracking-wider transition-colors"
+                    className="text-gray-900 hover:text-primary uppercase text-sm tracking-wider transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -96,8 +98,8 @@ const Header = () => {
         </nav>
       </header>
 
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         menuItems={menuItems}
       />
