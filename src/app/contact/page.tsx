@@ -11,6 +11,7 @@ export default function ContactPage() {
     subject: '',
     message: '',
   });
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -29,7 +30,7 @@ export default function ContactPage() {
       });
 
       if (response.ok) {
-        alert('Message sent successfully!');
+        setSuccessMessage('We’ve received your message. We’ll get back to you soon.');
         setFormData({
           firstName: '',
           lastName: '',
@@ -56,6 +57,11 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div>
+              {successMessage && (
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                  <span className="block sm:inline">{successMessage}</span>
+                </div>
+              )}
               <form onSubmit={handleSubmit} className="border border-gray-200 rounded p-8">
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
