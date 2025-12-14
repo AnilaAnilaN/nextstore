@@ -10,8 +10,8 @@ export interface Product {
   colors?: string[];
   stock: number;
   featured: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CartItem extends Product {

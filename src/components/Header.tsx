@@ -1,19 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Link from 'next/link';
 import { Search, User, Heart, ShoppingCart, Menu } from 'lucide-react';
 import MobileMenu from './MobileMenu';
+import { CartContext } from '@/context/CartContext';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const cartContext = useContext(CartContext);
+
+  if (!cartContext) {
+    
+    return null;
+  }
+
+  const { cartCount } = cartContext;
 
   const menuItems = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Shop', href: '/shop' },
-    { label: 'Catalogue', href: '#' },
-    { label: 'New Arrivals', href: '#' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'New Arrivals', href: '/shop?filter=new' },
     { label: 'Contact', href: '/contact' },
   ];
 
@@ -54,7 +63,7 @@ const Header = () => {
                 <Link href="/cart" className="relative">
                   <ShoppingCart className="w-5 h-5 text-gray-600 hover:text-gray-900" />
                   <span className="absolute -top-2 -right-2 bg-[#7971ea] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                    2
+                    {cartCount}
                   </span>
                 </Link>
                 <button 

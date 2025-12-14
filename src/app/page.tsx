@@ -2,15 +2,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Truck, RefreshCw, HelpCircle } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
+import connectDB from '@/lib/db';
+import ProductModel from '@/models/Product';
+import { Product } from '@/types';
 
-const products = [
-  { id: 1, name: 'Tank Top', description: 'Finding perfect t-shirt', price: 50, image: '/images/cloth_1.jpg', category: 'clothing' },
-  { id: 2, name: 'Corater', description: 'Finding perfect products', price: 50, image: '/images/shoe_1.jpg', category: 'shoes' },
-  { id: 3, name: 'Polo Shirt', description: 'Finding perfect products', price: 50, image: '/images/cloth_2.jpg', category: 'clothing' },
-  { id: 4, name: 'T-Shirt Mockup', description: 'Finding perfect products', price: 50, image: '/images/cloth_3.jpg', category: 'clothing' },
-];
+async function getFeaturedProducts(): Promise<Product[]> {
+  await connectDB();
+  const products = await ProductModel.find({ featured: true }).limit(4).lean();
+  return JSON.parse(JSON.stringify(products));
+}
 
-export default function Home() {
+export default async function Home() {
+  const products = await getFeaturedProducts();
+
   return (
     <>
       {/* Hero Section */}
@@ -104,7 +108,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product._id} product={product} />
             ))}
           </div>
         </div>

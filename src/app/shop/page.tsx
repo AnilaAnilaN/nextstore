@@ -8,6 +8,11 @@ import Link from 'next/link';
 
 export default function ShopPage() {
   const [products, setProducts] = useState([]);
+  const [categoryCounts, setCategoryCounts] = useState({
+    men: 0,
+    women: 0,
+    children: 0,
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,7 +28,21 @@ export default function ShopPage() {
       }
     };
 
+    const fetchCategoryCounts = async () => {
+      try {
+        const response = await fetch('/api/products/category-counts');
+        if (!response.ok) {
+          throw new Error('Failed to fetch category counts');
+        }
+        const data = await response.json();
+        setCategoryCounts(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchProducts();
+    fetchCategoryCounts();
   }, []);
   return (
     <>
@@ -40,15 +59,15 @@ export default function ShopPage() {
                 <ul className="space-y-2">
                   <li className="flex justify-between">
                     <Link href="#" className="text-gray-600 hover:text-[#7971ea]">Men</Link>
-                    <span className="text-gray-900">(2,220)</span>
+                    <span className="text-gray-900">({categoryCounts.men})</span>
                   </li>
                   <li className="flex justify-between">
                     <Link href="#" className="text-gray-600 hover:text-[#7971ea]">Women</Link>
-                    <span className="text-gray-900">(2,550)</span>
+                    <span className="text-gray-900">({categoryCounts.women})</span>
                   </li>
                   <li className="flex justify-between">
                     <Link href="#" className="text-gray-600 hover:text-[#7971ea]">Children</Link>
-                    <span className="text-gray-900">(2,124)</span>
+                    <span className="text-gray-900">({categoryCounts.children})</span>
                   </li>
                 </ul>
               </div>
