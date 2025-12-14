@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Image from 'next/image';
 import Link from 'next/link';
 import { Truck, RefreshCw, HelpCircle } from 'lucide-react';
@@ -15,47 +14,6 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
 export default async function Home() {
   const products = await getFeaturedProducts();
-=======
-import Image from "next/image";
-import Link from "next/link";
-import { Truck, RefreshCw, HelpCircle } from "lucide-react";
-import ProductCard from "@/components/ProductCard";
-
-const products = [
-  {
-    id: 1,
-    name: "Tank Top",
-    description: "Finding perfect t-shirt",
-    price: 50,
-    image: "/images/cloth_1.jpg",
-    category: "clothing",
-  },
-  {
-    id: 2,
-    name: "Corater",
-    description: "Finding perfect products",
-    price: 50,
-    image: "/images/shoe_1.jpg",
-    category: "shoes",
-  },
-  {
-    id: 3,
-    name: "Polo Shirt",
-    description: "Finding perfect products",
-    price: 50,
-    image: "/images/cloth_2.jpg",
-    category: "clothing",
-  },
-  {
-    id: 4,
-    name: "T-Shirt Mockup",
-    description: "Finding perfect products",
-    price: 50,
-    image: "/images/cloth_3.jpg",
-    category: "clothing",
-  },
-];
->>>>>>> 37bc97aeec11e3760e0ff2a7d60c6c9651b311fc
 
   return (
     <>
