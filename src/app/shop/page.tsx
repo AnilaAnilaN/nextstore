@@ -6,8 +6,10 @@ import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Product } from "@/types";
+
 export default function ShopPage() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [categoryCounts, setCategoryCounts] = useState({
     men: 0,
     women: 0,

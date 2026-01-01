@@ -28,7 +28,8 @@ export async function GET(request: NextRequest) {
       // To improve security, we could also require email in searchParams and verify it
     } else {
       // If not admin, only show user's orders
-      if (session?.user?.(role !== 'admin' && role !== 'super-admin')) {
+      const role = (session?.user as any)?.role;
+      if (!session?.user || (role !== 'admin' && role !== 'super-admin')) {
         if (!session?.user?.email) {
           return NextResponse.json({ success: true, data: [] });
         }

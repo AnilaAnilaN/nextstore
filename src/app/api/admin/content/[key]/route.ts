@@ -7,7 +7,7 @@ import PageContent from '@/models/PageContent';
 // GET content by key
 export async function GET(
     request: NextRequest,
-    { params }: { params: { key: string } }
+    { params }: { params: Promise<{ key: string }> }
 ) {
     try {
         await connectDB();
@@ -29,7 +29,7 @@ export async function GET(
 // POST/PUT update content
 export async function POST(
     request: NextRequest,
-    { params }: { params: { key: string } }
+    { params }: { params: Promise<{ key: string }> }
 ) {
     try {
         const session = await getServerSession(authOptions);

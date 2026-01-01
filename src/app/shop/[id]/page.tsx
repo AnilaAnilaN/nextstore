@@ -7,7 +7,7 @@ import ProductActions from '@/components/ProductActions';
 import { Product } from '@/types';
 import ProductReviews from '@/components/ProductReviews';
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   await connectDB();
@@ -38,6 +38,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
     price: productDoc.price,
     image: productDoc.image && productDoc.image.trim() !== '' ? productDoc.image : '/images/hero_1.png',
     featured: productDoc.featured ?? false,
+    category: productDoc.category || 'Uncategorized',
+    stock: productDoc.stock ?? 0,
     createdAt: productDoc.createdAt?.toString() || '',
     updatedAt: productDoc.updatedAt?.toString() || '',
   };
@@ -66,7 +68,6 @@ export default async function ProductPage({ params }: { params: { id: string } }
 
               {/* Product action buttons - client component */}
               <div className="absolute top-4 right-4">
-                {/* @ts-expect-error Server -> Client prop compatibility */}
                 <ProductActions product={product} />
               </div>
             </div>
