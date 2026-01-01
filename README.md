@@ -1,48 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StarStore E-Commerce Application
 
-## Getting Started
+A full-stack e-commerce application built with Next.js 16, MongoDB, and Tailwind CSS. Features a comprehensive admin dashboard, blog system with rich text editing, and complete shopping functionality.
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework:** [Next.js 16](https://nextjs.org/) (Turbopack)
+- **Database:** [MongoDB](https://www.mongodb.com/) (Mongoose)
+- **Authentication:** [NextAuth.js](https://next-auth.js.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [Lucide React](https://lucide.dev/)
+- **Image Storage:** [ImageKit.io](https://imagekit.io/)
+- **Rich Text Editor:** [TipTap](https://tiptap.dev/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🛍️ Customer Features
+- **Product Browsing:** Filter by category, search, and view detailed product pages.
+- **Shopping Cart:** Add items, adjust quantities, and proceed to checkout.
+- **Wishlist:** Save favorite items for later.
+- **User Accounts:** Register, login, view order history, and manage profile.
+- **Blog:** Read articles with rich content and post comments.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🛡️ Admin Dashboard
+- **Product Management:** Create, edit, and delete products with image uploads.
+- **Blog Management:** Write and publish articles using a rich text editor.
+- **Comment Moderation:** View and manage user comments.
+- **Order Management:** Track and process customer orders.
+- **Analytics:** Overview of sales, traffic, and user activity.
 
-## Learn More
+## 🛠️ Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
+- Node.js 18+
+- MongoDB Database
+- ImageKit Account
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/AnilaAnilaN/StarStore.app.git
+   cd StarStore.app
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Setup**
+   Copy the example environment file and fill in your credentials:
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Update `.env.local` with your keys:
+   - `MONGODB_URI`: Your MongoDB connection string.
+   - `IMAGEKIT_*`: Your ImageKit credentials.
+   - `NEXTAUTH_SECRET`: Generate a secure random string.
+   - `ADMIN_*`: Credentials for the initial admin account.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
----
+   Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-## Project notes (recent changes)
+## 🔐 Admin Access
 
-- Implemented customer registration and login pages (`/register`, `/login`). The backend `/api/users` supports creating users and hashes passwords securely.
-- Updated NextAuth credentials provider to authenticate both admin and regular users.
-- Fixed wishlist duplicate checks and added a user `/wishlists` page to view/remove wishlist items.
-- Checkout now supports creating an account during checkout (password field revealed when `Create an account?` is checked).
-- Refactored product UI: extracted `ProductActions` to reduce duplicate wishlist/add-to-cart logic and converted product detail page to a server component for better performance.
+To access the admin dashboard:
+1. Navigate to `/admin/login`
+2. Log in with the credentials configured in your `.env.local` file (or the initial admin setup).
 
-Please run the dev server and test auth, wishlist, and checkout flows. Note: run `npm install` and ensure `NEXTAUTH_SECRET` and MongoDB connection (`MONGODB_URI`) are set in `.env`.
+## 📝 Script Commands
+
+- `npm run dev`: Start development server (Turbopack)
+- `npm run build`: Build for production
+- `npm run start`: Start production server
+- `npm run lint`: Run ESLint
+
+## 📄 License
+
+This project is licensed under the MIT License.
