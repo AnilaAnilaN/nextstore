@@ -29,7 +29,22 @@ const teamMembers = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  let content = {
+    title: "How We Started",
+    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius repellat, dicta at laboriosam, nemo exercitationem itaque eveniet architecto cumque, deleniti commodi molestias repellendus quos sequi hic fugiat asperiores illum. Atque, in, fuga excepturi corrupti error corporis aliquam unde nostrum quas.\n\nAccusantium dolor ratione maiores est deleniti nihil? Dignissimos est, sunt nulla illum autem in, quibusdam cumque recusandae, laudantium minima repellendus.",
+  };
+
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/content/about`, { cache: 'no-store' });
+    const data = await res.json();
+    if (data.success && data.data) {
+      content = data.data.content;
+    }
+  } catch (error) {
+    console.error("Error fetching about content:", error);
+  }
+
   return (
     <>
       <Breadcrumb items={[{ label: "About" }]} />
@@ -53,23 +68,13 @@ export default function AboutPage() {
             <div>
               <div className="mb-6">
                 <h2 className="text-3xl font-medium text-gray-900 relative inline-block pb-2">
-                  How We Started
+                  {content.title}
                   <span className="absolute bottom-0 left-0 w-10 h-0.5 bg-primary" />
                 </h2>
               </div>
-              <p className="text-gray-600 mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
-                repellat, dicta at laboriosam, nemo exercitationem itaque
-                eveniet architecto cumque, deleniti commodi molestias
-                repellendus quos sequi hic fugiat asperiores illum. Atque, in,
-                fuga excepturi corrupti error corporis aliquam unde nostrum
-                quas.
-              </p>
-              <p className="text-gray-600">
-                Accusantium dolor ratione maiores est deleniti nihil?
-                Dignissimos est, sunt nulla illum autem in, quibusdam cumque
-                recusandae, laudantium minima repellendus.
-              </p>
+              <div className="text-gray-600 whitespace-pre-wrap">
+                {content.description}
+              </div>
             </div>
           </div>
         </div>
@@ -109,6 +114,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      ...
 
       {/* Features Section */}
       <section className="py-10 md:py-20">

@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block text-3xl font-bold uppercase tracking-wider border-2 border-white text-white px-4 py-2">
-            Shoppers
+            StarStore
           </Link>
           <h1 className="text-white text-2xl font-light mt-4">Admin Panel</h1>
         </div>
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary"
-                  placeholder="admin@shoppers.com"
+                  placeholder="admin@starstore.com"
                   required
                 />
               </div>

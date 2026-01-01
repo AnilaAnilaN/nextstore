@@ -10,6 +10,7 @@ export interface IOrderItem {
 
 export interface IOrder extends Document {
   orderNumber: string;
+  user?: mongoose.Types.ObjectId;
   customer: {
     firstName: string;
     lastName: string;
@@ -39,6 +40,10 @@ const OrderSchema = new Schema<IOrder>(
       type: String,
       required: true,
       unique: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
     customer: {
       firstName: { type: String, required: true },
@@ -85,7 +90,6 @@ OrderSchema.pre<IOrder>('save', async function () {
   }
 });
 
-OrderSchema.index({ orderNumber: 1 });
 OrderSchema.index({ 'customer.email': 1 });
 OrderSchema.index({ status: 1 });
 

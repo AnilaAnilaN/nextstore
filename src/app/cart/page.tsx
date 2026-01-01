@@ -1,55 +1,67 @@
 "use client";
 
-import { useState } from "react";
+import { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Minus, Plus, X } from "lucide-react";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import { CartContext } from "@/context/CartContext";
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "Top Up T-Shirt",
-      price: 49.0,
-      quantity: 1,
-      image: "/images/cloth_1.jpg",
-    },
-    {
-      id: 2,
-      name: "Polo Shirt",
-      price: 49.0,
-      quantity: 1,
-      image: "/images/cloth_2.jpg",
-    },
-  ]);
+  const cartContext = useContext(CartContext);
 
-  const updateQuantity = (id: number, delta: number) => {
-    setCartItems((items) =>
-      items.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
+  if (!cartContext) {
+    return null;
+  }
+
+  const {
+    cartItems,
+    updateQuantity,
+    removeFromCart,
+    cartTotal,
+    isLoading,
+  } = cartContext;
+
+  if (isLoading) {
+    return (
+      <>
+        <Breadcrumb items={[{ label: "Cart" }]} />
+        <section className="py-10 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center py-12">
+              <p className="text-gray-600">Loading your cart...</p>
+            </div>
+          </div>
+        </section>
+      </>
     );
-  };
+  }
 
-  const removeItem = (id: number) => {
-    setCartItems((items) => items.filter((item) => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  if (cartItems.length === 0) {
+    return (
+      <>
+        <Breadcrumb items={[{ label: "Cart" }]} />
+        <section className="py-10 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center py-12">
+              <h2 className="text-2xl font-medium text-gray-900 mb-4">
+                Your cart is empty
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Looks like you haven't added any items to your cart yet.
+              </p>
+              <Link
+                href="/shop"
+                className="bg-primary text-white py-3 px-6 rounded-sm tracking-[0.05em] uppercase transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_10px_15px_-3px_rgb(0_0_0/0.1)] hover:-translate-y-0.5 inline-block"
+              >
+                Start Shopping
+              </Link>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
 
   return (
     <>
@@ -83,7 +95,7 @@ export default function CartPage() {
               </thead>
               <tbody>
                 {cartItems.map((item) => (
-                  <tr key={item.id} className="border-t-2 border-primary">
+                  <tr key={item._id} className="border-t-2 border-primary">
                     <td className="p-5 text-center">
                       <div className="relative w-32 h-32 mx-auto">
                         <Image
@@ -104,8 +116,11 @@ export default function CartPage() {
                     <td className="p-5 text-center">
                       <div className="flex items-center justify-center space-x-2">
                         <button
-                          onClick={() => updateQuantity(item.id, -1)}
-                          className="px-3 py-1 border border-primary rounded hover:bg-primary hover:text-white"
+                          onClick={() =>
+                            updateQuantity(item._id, item.quantity - 1)
+                          }
+                          className="px-3 py-1 border border-primary rounded hover:bg-primary hover:text-white transition-colors"
+                          disabled={item.quantity <= 1}
                         >
                           <Minus className="w-4 h-4" />
                         </button>
@@ -116,8 +131,10 @@ export default function CartPage() {
                           readOnly
                         />
                         <button
-                          onClick={() => updateQuantity(item.id, 1)}
-                          className="px-3 py-1 border border-primary rounded hover:bg-primary hover:text-white"
+                          onClick={() =>
+                            updateQuantity(item._id, item.quantity + 1)
+                          }
+                          className="px-3 py-1 border border-primary rounded hover:bg-primary hover:text-white transition-colors"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -128,8 +145,8 @@ export default function CartPage() {
                     </td>
                     <td className="p-5 text-center">
                       <button
-                        onClick={() => removeItem(item.id)}
-                        className="bg-primary text-white px-3 py-1 rounded hover:bg-primary-hover"
+                        onClick={() => removeFromCart(item._id)}
+                        className="bg-primary text-white px-3 py-1 rounded hover:bg-primary-hover transition-colors"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -143,9 +160,6 @@ export default function CartPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <div className="flex space-x-4 mb-6">
-                <button className="bg-primary text-white py-3 px-6 rounded-sm tracking-[0.05em] uppercase transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_10px_15px_-3px_rgb(0_0_0/0.1)] hover:-translate-y-0.5 flex-1">
-                  Update Cart
-                </button>
                 <Link
                   href="/shop"
                   className="py-3 px-6 rounded-sm uppercase tracking-[0.05em] transition-colors duration-200 border border-primary text-primary hover:bg-primary hover:text-white flex-1 text-center"
@@ -184,13 +198,13 @@ export default function CartPage() {
                 <div className="flex justify-between mb-4">
                   <span className="text-gray-900">Subtotal</span>
                   <strong className="text-gray-900">
-                    ${subtotal.toFixed(2)}
+                    ${cartTotal.toFixed(2)}
                   </strong>
                 </div>
                 <div className="flex justify-between mb-8">
                   <span className="text-gray-900">Total</span>
-                  <strong className="text-gray-900">
-                    ${subtotal.toFixed(2)}
+                  <strong className="text-gray-900 text-xl">
+                    ${cartTotal.toFixed(2)}
                   </strong>
                 </div>
                 <Link

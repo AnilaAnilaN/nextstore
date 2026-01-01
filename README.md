@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## Project notes (recent changes)
+
+- Implemented customer registration and login pages (`/register`, `/login`). The backend `/api/users` supports creating users and hashes passwords securely.
+- Updated NextAuth credentials provider to authenticate both admin and regular users.
+- Fixed wishlist duplicate checks and added a user `/wishlists` page to view/remove wishlist items.
+- Checkout now supports creating an account during checkout (password field revealed when `Create an account?` is checked).
+- Refactored product UI: extracted `ProductActions` to reduce duplicate wishlist/add-to-cart logic and converted product detail page to a server component for better performance.
+
+Please run the dev server and test auth, wishlist, and checkout flows. Note: run `npm install` and ensure `NEXTAUTH_SECRET` and MongoDB connection (`MONGODB_URI`) are set in `.env`.

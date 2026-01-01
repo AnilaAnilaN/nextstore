@@ -10,6 +10,12 @@
     "create-admin": "ts-node --project tsconfig.scripts.json scripts/createAdmin.ts"
   },
   "dependencies": {
+    "@tiptap/extension-image": "^3.14.0",
+    "@tiptap/extension-link": "^3.14.0",
+    "@tiptap/extension-underline": "^3.14.0",
+    "@tiptap/pm": "^3.14.0",
+    "@tiptap/react": "^3.14.0",
+    "@tiptap/starter-kit": "^3.14.0",
     "bcryptjs": "^3.0.3",
     "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.3",

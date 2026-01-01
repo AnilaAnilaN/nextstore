@@ -1,9 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 
 export default function ContactPage() {
+  const [content, setContent] = useState<any>({
+    locations: [
+      { city: 'New York', address: '203 Fake St. Mountain View, San Francisco, California, USA' },
+      { city: 'London', address: '203 Fake St. Mountain View, San Francisco, California, USA' },
+      { city: 'Canada', address: '203 Fake St. Mountain View, San Francisco, California, USA' },
+    ]
+  });
+
+  useEffect(() => {
+    fetch('/api/content/contact')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data) {
+          setContent(data.data.content);
+        }
+      })
+      .catch(err => console.error("Error fetching contact content:", err));
+  }, []);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -138,32 +157,16 @@ export default function ContactPage() {
 
             {/* Contact Information */}
             <div className="space-y-6">
-              <div className="border border-gray-200 rounded p-6">
-                <span className="text-primary uppercase text-sm font-medium block mb-2">
-                  New York
-                </span>
-                <p className="text-gray-600">
-                  203 Fake St. Mountain View, San Francisco, California, USA
-                </p>
-              </div>
-
-              <div className="border border-gray-200 rounded p-6">
-                <span className="text-primary uppercase text-sm font-medium block mb-2">
-                  London
-                </span>
-                <p className="text-gray-600">
-                  203 Fake St. Mountain View, San Francisco, California, USA
-                </p>
-              </div>
-
-              <div className="border border-gray-200 rounded p-6">
-                <span className="text-primary uppercase text-sm font-medium block mb-2">
-                  Canada
-                </span>
-                <p className="text-gray-600">
-                  203 Fake St. Mountain View, San Francisco, California, USA
-                </p>
-              </div>
+              {content.locations?.map((loc: any, idx: number) => (
+                <div key={idx} className="border border-gray-200 rounded p-6">
+                  <span className="text-primary uppercase text-sm font-medium block mb-2">
+                    {loc.city}
+                  </span>
+                  <p className="text-gray-600">
+                    {loc.address}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { mukta } from "../components/fonts";
 
 export const metadata: Metadata = {
   // Keep metadata here
-  title: "Shoppers - E-Commerce Store",
+  title: "StarStore - E-Commerce Store",
   description: "Find your perfect shoes and clothing",
 };
 

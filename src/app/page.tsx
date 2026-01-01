@@ -15,6 +15,21 @@ async function getFeaturedProducts(): Promise<Product[]> {
 export default async function Home() {
   const products = await getFeaturedProducts();
 
+  let heroContent = {
+    heroTitle: "Finding Your Perfect Shoes",
+    heroSubtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla."
+  };
+
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/content/home_hero`, { cache: 'no-store' });
+    const data = await res.json();
+    if (data.success && data.data) {
+      heroContent = data.data.content;
+    }
+  } catch (error) {
+    console.error("Error fetching hero content:", error);
+  }
+
   return (
     <>
       {/* Hero Section */}
@@ -23,12 +38,12 @@ export default async function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="max-w-xl text-center md:text-left">
               <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-                Finding Your Perfect Shoes
+                {heroContent.heroTitle}
               </h1>
               <p className="text-lg text-gray-700 mb-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus at iaculis quam. Integer accumsan tincidunt fringilla.
+                {heroContent.heroSubtitle}
               </p>
+              ...
               <Link
                 href="/shop"
                 className="bg-primary text-white py-3 px-6 rounded-sm tracking-[0.05em] uppercase transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_10px_15px_-3px_rgb(0_0_0/0.1)] hover:-translate-y-0.5 inline-block"

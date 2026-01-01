@@ -1,29 +1,37 @@
-import { NextResponse } from 'next/server';
-import connectDB from '@/lib/db';
+import db from '@/lib/db';
 import Product from '@/models/Product';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
-  await connectDB();
+  await db();
 
   try {
-    const menCount = await Product.countDocuments({ category: 'men' });
-    const womenCount = await Product.countDocuments({ category: 'women' });
-    const childrenCount = await Product.countDocuments({ category: 'children' });
+    const categoryCounts = await Product.aggregate([
+      {
+        $group: {
+          _id: '$category',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          category: '$_id',
+          count: 1,
+        },
+      },
+    ]);
 
     return NextResponse.json({
       success: true,
-      data: {
-        men: menCount,
-        women: womenCount,
-        children: childrenCount,
-      },
+      data: categoryCounts,
     });
   } catch (error) {
+    console.error('Error fetching category counts:', error);
     return NextResponse.json(
       {
         success: false,
-        message: 'Error fetching category counts',
-        error: error.message,
+        error: 'Server error while fetching category counts',
       },
       { status: 500 }
     );

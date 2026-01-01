@@ -1,7 +1,26 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Mail, Phone, MapPin } from "lucide-react";
 
-const Footer = () => {
+export default function Footer() {
+  const [contactInfo, setContactInfo] = useState<any>({
+    locations: [{ address: '203 Fake St. Mountain View, San Francisco, California, USA' }],
+    phone: '+2 392 3929 210',
+    email: 'emailaddress@domain.com'
+  });
+
+  useEffect(() => {
+    fetch('/api/content/contact')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data) {
+          setContactInfo(data.data.content);
+        }
+      })
+      .catch(err => console.error("Error fetching footer contact info:", err));
+  }, []);
+
   return (
     <footer className="border-t border-gray-200 py-16">
       <div className="container mx-auto px-4">
@@ -128,20 +147,26 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h3 className="text-gray-900 text-xl mb-4">Contact Info</h3>
-            <ul className="space-y-2 mb-8">
-              <li className="text-gray-600">
-                203 Fake St. Mountain View, San Francisco, California, USA
-              </li>
-              <li>
-                <Link
-                  href="tel:+23923929210"
-                  className="text-gray-600 hover:text-primary"
-                >
-                  +2 392 3929 210
-                </Link>
-              </li>
-              <li className="text-gray-600">emailaddress@domain.com</li>
-            </ul>
+            <div className="space-y-4 mb-8">
+              <div className="flex items-start space-x-3 group">
+                <MapPin className="w-5 h-5 text-primary shrink-0 mt-1" />
+                <p className="text-gray-600">
+                  {contactInfo.locations?.[0]?.address || '203 Fake St. Mountain View, San Francisco, California, USA'}
+                </p>
+              </div>
+              <div className="flex items-center space-x-3 group">
+                <Phone className="w-5 h-5 text-primary shrink-0" />
+                <p className="text-gray-600 group-hover:text-primary transition-colors">
+                  {contactInfo.phone || '+2 392 3929 210'}
+                </p>
+              </div>
+              <div className="flex items-center space-x-3 group">
+                <Mail className="w-5 h-5 text-primary shrink-0" />
+                <p className="text-gray-600 group-hover:text-primary transition-colors">
+                  {contactInfo.email || 'emailaddress@domain.com'}
+                </p>
+              </div>
+            </div>
 
             {/* Subscribe Form */}
             <div>
@@ -165,20 +190,10 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-16 pt-8 text-center border-t border-gray-200">
           <p className="text-gray-600">
-            Copyright &copy; {new Date().getFullYear()} All rights reserved |
-            This template is made with ❤️ by{" "}
-            <Link
-              href="https://colorlib.com"
-              target="_blank"
-              className="text-primary"
-            >
-              Colorlib
-            </Link>
+            Copyright &copy; {new Date().getFullYear()} All rights reserved | StarStore
           </p>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

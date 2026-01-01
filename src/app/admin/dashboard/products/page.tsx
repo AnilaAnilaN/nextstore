@@ -163,7 +163,7 @@ export default function ProductsPage() {
                     <div className="flex items-center space-x-3">
                       <div className="relative w-12 h-12 rounded overflow-hidden shrink-0">
                         <Image
-                          src={product.image}
+                          src={product.image && product.image.trim() !== '' ? product.image : '/images/hero_1.png'}
                           alt={product.name}
                           fill
                           sizes="48px"
